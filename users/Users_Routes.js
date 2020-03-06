@@ -42,7 +42,7 @@ router.put('/:id', (req, res) => {
 
         Users.update(changes, id)
         .then(update => {
-            res.json(update);
+            res.json({updated: update, id: id});
         })
         .catch(error =>{
             res.status(500).json({err: 'failed to update user with given id'})
@@ -64,7 +64,7 @@ router.delete('/:id', (req, res) => {
     Users.erase(id)
         .then(count => {
             if(count){
-                res.json(count);
+                res.json({deleted:count, id:id});
             } else {
                 res.status(404).json({message: "provided id does not exist"})
             }
